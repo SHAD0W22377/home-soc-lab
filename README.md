@@ -69,13 +69,13 @@ index=main sourcetype="WinEventLog:Security" EventCode=4625
 ## Screenshots
 
 ### Brute Force Detection
-![Brute Force](screenshots/brute-force-detection.png)
+![Brute Force](screenshots/Login-Attempts-Timestamps.png)
 
 ### Port Scan Detection
-![Port Scan](screenshots/port-scan-detection.png)
+![Port Scan](screenshots/Port-Scan_Timeline.png)
 
 ### Splunk Alerts
-![Alerts](screenshots/splunk-alerts.png)
+![Alerts](screenshots/Alerts.png)
 
 ## Key Takeaways
 - Configured end-to-end log pipeline from Windows to Splunk
