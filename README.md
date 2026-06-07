@@ -12,12 +12,14 @@ free/open-source tools.
 - **Network:** VirtualBox Host-Only Adapter (isolated)
 
 ## Tools Used
-- VirtualBox — hypervisor
-- Kali Linux — attacker machine
-- Nmap — port scanning / reconnaissance
-- Hydra — credential brute forcing
-- Splunk Enterprise — SIEM and log analysis
-- Splunk Universal Forwarder — log collection
+| Tool | Purpose |
+|------|---------|
+| VirtualBox | Hypervisor |
+| Kali Linux | Attacker machine |
+| Nmap | Port scanning / reconnaissance |
+| Hydra | Credential brute forcing |
+| Splunk Enterprise | SIEM and log analysis |
+| Splunk Universal Forwarder | Log collection agent |
 
 ## Attack Simulations
 
@@ -28,8 +30,8 @@ nmap -sT -p 1-1000 192.168.56.101
 ```
 **MITRE ATT&CK:** T1046 — Network Service Discovery
 
-### 2. Brute Force (Hydra)
-Simulated credential attack against SMB.
+### 2. Brute Force (Hydra + PowerShell simulation)
+Simulated credential attack generating failed login events.
 ```bash
 hydra -l administrator -P /usr/share/wordlists/rockyou.txt 
 smb://192.168.56.101 -t 1
@@ -39,6 +41,7 @@ smb://192.168.56.101 -t 1
 ## Splunk Detections
 
 ### Port Scan Detection
+Flags any source IP hitting more than 3 unique ports.
 ```spl
 index=main sourcetype="WinEventLog:Security" EventCode=5156
 | stats dc(Destination_Port) as ports_hit by Source_Address
@@ -47,9 +50,10 @@ index=main sourcetype="WinEventLog:Security" EventCode=5156
 ```
 
 ### Brute Force Detection
+Flags any account with more than 5 failed login attempts.
 ```spl
 index=main sourcetype="WinEventLog:Security" EventCode=4625
-| stats count by Source_Address Account_Name
+| stats count by Account_Name ComputerName
 | where count > 5
 | sort -count
 ```
@@ -63,12 +67,19 @@ index=main sourcetype="WinEventLog:Security" EventCode=4625
 | 5157 | Firewall blocked connection |
 
 ## Screenshots
-![Dashboard](Splunk-SOC-Lab-Dashboard.png)
-![Port Scan Alert](Alerts.png)
-![Failed Logins](Login-Attempts-Timestamps.png)
+
+### Brute Force Detection
+![Brute Force](screenshots/brute-force-detection.png)
+
+### Port Scan Detection
+![Port Scan](screenshots/port-scan-detection.png)
+
+### Splunk Alerts
+![Alerts](screenshots/splunk-alerts.png)
 
 ## Key Takeaways
 - Configured end-to-end log pipeline from Windows to Splunk
 - Wrote SPL detection queries for real attack patterns
 - Mapped detections to MITRE ATT&CK framework
 - Practiced real attacker tooling in an isolated environment
+- Documented findings for professional portfolio
