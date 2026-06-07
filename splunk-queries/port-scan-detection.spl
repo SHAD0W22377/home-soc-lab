@@ -1,0 +1,4 @@
+index=main sourcetype="WinEventLog:Security" EventCode=5156
+| stats dc(Destination_Port) as ports_hit by Source_Address
+| where ports_hit > 3
+| sort -ports_hit
