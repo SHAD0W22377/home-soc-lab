@@ -63,9 +63,9 @@ index=main sourcetype="WinEventLog:Security" EventCode=4625
 | 5157 | Firewall blocked connection |
 
 ## Screenshots
-![Dashboard](screenshots/splunk-dashboard.png)
-![Port Scan Alert](screenshots/port-scan-alert.png)
-![Failed Logins](screenshots/failed-login-alert.png)
+![Dashboard](Splunk-SOC-Lab-Dashboard.png)
+![Port Scan Alert](Alerts.png)
+![Failed Logins](Login-Attempts-Timestamps.png)
 
 ## Key Takeaways
 - Configured end-to-end log pipeline from Windows to Splunk
