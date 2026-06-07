@@ -72,7 +72,7 @@ index=main sourcetype="WinEventLog:Security" EventCode=4625
 ![Brute Force](screenshots/Login-Attempts-Timestamps.png)
 
 ### Port Scan Detection
-![Port Scan](screenshots/Port-Scan_Timeline.png)
+![Port Scan](screenshots/Port-Scan-Timeline.png)
 
 ### Splunk Alerts
 ![Alerts](screenshots/Alerts.png)
